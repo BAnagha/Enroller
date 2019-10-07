@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Enroller</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+   
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main1.css">
+    <link href="css/main.css" rel="stylesheet" media="all">
+    <style>
+        #div1 {
+            transform: translateY(33%);
+        }
+
+        #time {
+            font-family: inherit;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        #date {
+            font-family: inherit;
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ENROLLER</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="containerAdmin" style="justify-content:width;">
+        <div class="oneAdmin">
+            <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                <div class="wrapperPad">
+                    <div class="cardAdmin card-1 align-self-center align-self-center">
+                        <ul class="list-group list-group-flush">
+                            <li style="text-align:center;" class="list-group-item"><a th:href="@{/getAddEmployeePage}">ADD
+                                    EMPLOYEE</a></li>
+                            <li style="text-align: center;" class="list-group-item"><a th:href="@{/getEditEmployeePage}">EDIT/VIEW
+                                    EMPLOYEE</a></li>
+                            <li style="text-align: center;" class="list-group-item"><a th:href="@{/getCreateShiftPage}">ADD
+                                    SHIFT</a></li>
+                            <li style="text-align: center;" class="list-group-item"><a th:href="@{/getEditShiftPage}">EDIT/VIEW
+                                    SHIFT</a></li>
+                            <li style="text-align: center;" class="list-group-item"><a th:href="@{/getAddShiftVenuePage}">ADD
+                                    VENUE</a></li>
+                            <li style="text-align: center;" class="list-group-item"><a th:href="@{/getEditShiftVenuePage}">EDIT/VIEW
+                                    VENUE</a></li>
+                            <!-- <li style="text-align: center;" class="list-group-item"><a href="addEmployee.html">VIEW
+                                    LEAVE</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twoAdmin">
+            <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                <div class="wrapperPad">
+                    <div class="cardAdmin card-1 align-self-center">
+                        <div class="card-heading1">
+                            <img src="images/user.png" alt="Jane" style="width:30%;">
+                            <h4 class=title style="text-align: center; padding-top: 10px;"> ADMIN </h4>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div th:if="${admin != null}">
+                                <div class="output">
+                                        <h4 class="title" style="text-transform: uppercase;" th:text="${admin.firstName} + ' '+${admin.lastName}"></h4>                            
+                                   <div class="output">
+                                    	<p><b>EMAIL: </b> <span th:text="${admin.email}"></span></p><br>
+                                        <p><b>DATE OF BIRTH: </b> <span th:text="${admin.dateOfBirth}"></span></p><br>
+                                        <p><b>DATE OF JOINING: </b> <span th:text="${admin.dateOfjoining}"></span></p><br>
+                                        <p><b>ADDRESS: </b> <span th:text="${admin.address}"></span></p><br>
+                                        <p><b>PHONE NO.: </b> <span th:text="${admin.phoneNumber}"></span></p><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="threeAdmin">
+            <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                <div class="wrapperPad">
+                    <div class="cardAdmin card-1 align-self-center">
+                        <div id="div1">
+                            <p id="time"></p>
+                            <p id="date"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/global.js"></script>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+    window.setInterval(ut, 1000);
+
+    function ut() {
+        var d = new Date();
+        document.getElementById("time").innerHTML = d.toLocaleTimeString();
+        document.getElementById("date").innerHTML = d.toLocaleDateString();
+    }
+</script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Enroller</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <link href="./css/main.css" rel="stylesheet" media="all">
+
+    <style>
+        .search-container {
+            width: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        input#search-bar {
+            margin: 0 auto;
+            width: 100%;
+            height: 45px;
+            padding: 0 20px;
+            font-size: 14px;
+            border: 1px solid #D0CFCE;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .search-icon {
+            position: relative;
+            float: right;
+            width: 50px;
+            height: 50px;
+            top: -48px;
+            right: -430px;
+        }
+
+        .input-group{
+		    display: block;
+        }
+
+        .card-1 .card-body {
+            padding-bottom: 100px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ENROLLER</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h3 class="title">EDIT/VIEW Venue</h3>
+                    <form class="search-container" action="/searchVenue" method="post">
+                        <input type="text" name="v_code" id="search-bar" placeholder="SEARCH VENUE">
+                        <button type="submit"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
+                    </form>
+
+
+                    <form method="POST" th:if="${venue != null}" th:object="${venue}" action="/editVenue">
+
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{venueCode}" th:field="${venue.venueCode}"
+                                placeholder="VENUE CODE" name="venueCode">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{venueName}" th:field="${venue.venueName}"
+                                placeholder="VENUE NAME" name="venueName">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{venueAddress}" th:field="${venue.venueAddress}"
+                                placeholder="VENUE ADDRESS" name="venueAddress">
+                        </div>
+
+                        <div>
+                            <div class="p-t-20" style="float: left;">
+                                <button class="btn btn--radius btn--green" type="submit">Go Back</button>
+                            </div>
+                            <div class="p-t-20" style="float:right;">
+                                <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->

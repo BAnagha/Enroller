@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Enroller</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+	<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+	<link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main1.css">
+	<link href="./css/main.css" rel="stylesheet" media="all">
+
+	<style>
+
+		#div1 {
+		transform: translateY(33%);
+	}
+
+	#time {
+		font-family: inherit;
+		font-size: 30px;
+		text-align: center;
+	}
+
+	#date {
+		font-family: inherit;
+		font-size: 25px;
+		text-align: center;
+	}
+	
+	.input-group{
+		display: block;
+	}
+
+	.card-1 .card-body {
+		padding-bottom: 100px;
+	}
+	
+	</style>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">ENROLLER</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+		<div class="wrapper">
+			<div class="cardAddEmp card-1 align-self-center">
+				<div class="card-heading1">
+					<h3>ALLOTED Shifts</h3>
+				</div>
+
+				<div class="card-body">
+
+					<div class="table100 ver4 m-b-110">
+						<table data-vertable="ver4" class="fixed_header" th:if="${shifts!=null and !shifts.isEmpty()}">
+							<thead>
+								<tr class="row100 head">
+									<th class="column100 column1" data-column="column1">Shift
+										Id</th>
+									<th class="column100 column2" data-column="column2">Venue
+										Name</th>
+									<th class="column100 column3" data-column="column3">Venue
+										Address</th>
+									<th class="column100 column4" data-column="column4">Day</th>
+									<th class="column100 column5" data-column="column5">Start
+										Time</th>
+									<th class="column100 column6" data-column="column6">End
+										Time</th>
+									<th class="column100 column7" data-column="column7">Available Positions</th>
+									<th class="column100 column8" data-column="column8">Total Positions</th>
+									<th class="column100 column9" data-column="column9">Edit
+										Shift</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="row100" th:each="shift: ${shifts}">
+									<td class="column100 column1" data-column="column1" id="shiftId" th:text="${shift.id}" />
+									<td class="column100 column2" data-column="column2" th:text="${shift.venue.venueName}" />
+									<td class="column100 column3" data-column="column3" th:text="${shift.venue.venueAddress}" />
+									<td class="column100 column4" data-column="column4" th:text="${shift.day}" />
+									<td class="column100 column5" data-column="column5" th:text="${shift.startTime}" />
+									<td class="column100 column6" data-column="column6" th:text="${shift.endTime}" />
+									<td class="column100 column7" data-column="column7" th:text="${shift.numberOfWorkers}" />
+									<td class="column100 column8" data-column="column8" th:text="${shift.numberOfMains}" />
+									<td class="column100 column9" data-column="column9">
+										<button class="btn btn--radius btn--green" th:attr="onclick=|loadContent('${shift.id}','${shift.day}','${shift.startTime}','${shift.endTime}','${shift.numberOfWorkers}','${shift.numberOfMains}')|"
+										 id="selectVenue">Select Shift</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<form method="POST" action="/editShift">
+
+						<div class="input-group">
+							<input class="input--style-1" type="text" placeholder="SHIFT ID" id="shiftID" name="shiftID">
+						</div>
+
+						<!-- <div>
+						<input class="input--style-1" type="text" id="venueCode" name="venueCode" placeholder="VENUE CODE">
+						</div> -->
+						<div class="input-group">
+							<input class="input--style-1" type="text" placeholder="DAY OF SHIFT" id="day" name="day">
+						</div>
+						<div class="input-group">
+							<input class="input--style-1" type="text" placeholder="START TIME" id="startTime" name="startTime">
+						</div>
+						<div class="input-group">
+							<input class="input--style-1" type="text" placeholder="END TIME" id="endTime" name="endTime">
+						</div>
+
+						<div class="input-group">
+							<input class="input--style-1" type="number" placeholder="AVAILABLE POSITIONS" id="availablePositions" name="availablePositions">
+						</div>
+						<div class="input-group">
+							<input class="input--style-1" type="number" placeholder="TOTAL POSITIONS" id="totalPositions" name="totalPositions">
+						</div>
+
+						<div>
+							<div class="p-t-20" style="float: left;">
+								<button class="btn btn--radius btn--green" type="submit">Go Back</button>
+							</div>
+							<div class="p-t-20" style="float:right;">
+								<button class="btn btn--radius btn--green" type="submit">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/global.js"></script>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/main.js"></script>
+
+<script type="text/javascript">
+	function loadContent(shiftID, day, startTime, endTime, availablePositions, totalPositions) {
+		document.getElementById("shiftID").value = shiftID;
+		document.getElementById("day").value = day;
+		document.getElementById("startTime").value = startTime;
+		document.getElementById("endTime").value = endTime;
+		document.getElementById("availablePositions").value = availablePositions;
+		document.getElementById("totalPositions").value = totalPositions;
+
+	}
+</script>
+
+</html>

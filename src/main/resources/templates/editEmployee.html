@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Enroller</title>
+
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="./css/main.css" rel="stylesheet" media="all">
+
+    <style>
+
+
+        .search-icon {
+            position: relative;
+            float: right;
+            width: 50px;
+            height: 50px;
+            top: -48px;
+            right: -430px;
+        }
+        .search-container {
+            width: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            margin: auto;
+            width: 100%;
+            height: 45px;
+            padding: 0px 20px;
+            font-size: 14px;
+            border: 1px solid #D0CFCE;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .input-group{
+			display: block;
+        }
+        
+        .card-1 .card-body {
+            padding-bottom: 100px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ENROLLER</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h3 class="title">EDIT/VIEW Employee</h3>
+                    <form class="search-container" action="/searchEmployee" method="post">
+                        <input type="text" name="username" style="margin: auto; width: 100%; height: 45px; padding:0px 20px; font-size:14px;  border: 1px solid #D0CFCE; border-radius: 4px;"
+                            placeholder="SEARCH EMPLOYEE BY USERNAME">
+                        <button type="submit"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
+                    </form>
+                    <form method="POST" th:if="${emp != null}" th:object="${emp}" action="/editEmployee">
+
+
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{firstName}" th:field="${emp.firstName}"
+                                placeholder="FIRSTNAME" name="firstName">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{lastname}" th:field="${emp.lastname}"
+                                placeholder="LASTNAME" name="lastName">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{address}" th:field="${emp.address}"
+                                placeholder="ADDRESS" name="address">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1 js-datepicker" th:value="*{dateOfBirth}" type="text" th:field="${emp.dateOfBirth}"
+                                placeholder="BIRTHDATE" name="birthday"> <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="text" th:value="*{gender}" th:field="${emp.gender}"
+                                        placeholder="GENDER" name="gender">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="email" th:value="*{email}" th:field="${emp.email}"
+                                        placeholder="EMAIL" name="email">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{username}" th:field="${emp.username}"
+                                placeholder="USERNAME" name="username">
+                        </div>
+
+                        <div class="input-group">
+                            <input class="input--style-1" type="text" th:value="*{password}" th:field="${emp.password}"
+                                placeholder="PASSWORD TO BE ASSIGNED" name="password">
+                        </div>
+
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="number" th:value="*{phoneNumber}" th:field="${emp.phoneNumber}"
+                                        placeholder="PHONE NUMBER" name="phone">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="number" th:value="*{salary}" th:field="${emp.salary}"
+                                        placeholder="SALARY" name="salary">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <input class="input--style-1 js-datepicker" type="text" th:value="*{dateOfJoining}"
+                                th:field="${emp.dateOfJoining}" placeholder="DATE OF JOINING  " name="doj"> <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                        </div>
+
+                        <div>
+                            <div class="p-t-20" style="float: left;">
+                                <button class="btn btn--radius btn--green" type="submit">Go Back</button>
+                            </div>
+                            <div class="p-t-20" style="float:right;">
+                                <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <script src="js/global.js"></script>
+
+</body>
+
+</html>

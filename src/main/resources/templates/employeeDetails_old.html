@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Enroller</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <!-- <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+   
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main1.css">
+    <link href="css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ENROLLER</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container justify-content-width">
+        <div class="one">
+            <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                <div class="wrapperPad">
+                    <div class="cardNew card-1 align-self-center">
+                        <div class="card-heading1">
+                            <h3>ALLOTED Shifts</h3>
+                        </div>
+                        <div class="btn-group">
+                        <form action="/addShift" method="GET">
+                           <button type="submit" class="btn btn-dark" style="background-color: black;">Add Full Time Shift</button>
+                        </form>
+                        <form action="/getSubletShiftPage" method="GET">
+                           <button type="submit" class="btn btn-dark" style="background-color: black;">Sublet Shift</button>
+                        </form>
+                         <form action="/addSublettedShift" method="GET">
+                           <button type="submit" class="btn btn-dark" style="background-color: black;">Take Subletted Shift</button>
+                        </form>
+                        
+                        </div>
+                        <div class="card-body overflow-auto">
+                            <div class="table100 ver4 m-b-110">
+                                <table data-vertable="ver4" class="fixed_header">
+                                    <thead>
+                                        <tr class="row100 head">
+                                            <th class="column100 column1" data-column="column1">Venue Name</th>
+                                            <th class="column100 column2" data-column="column2">Venue Address</th>
+                                            <th class="column100 column3" data-column="column3">Day</th>
+                                            <th class="column100 column4" data-column="column4">Start Time</th>
+                                            <th class="column100 column5" data-column="column5">End Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="row100" th:each="empShift: ${empShiftDetails}">
+									    <td class="column100 column1" data-column="column1" th:text="${empShift.shiftVenueName}" />
+									    <td class="column100 column2" data-column="column2" th:text="${empShift.shiftVenueAddress}"/>
+                                        <td class="column100 column3" data-column="column3" th:text="${empShift.shiftDay}"/>
+                                        <td class="column100 column4" data-column="column4" th:text="${empShift.startTime}"/>
+                                        <td class="column100 column5" data-column="column5" th:text="${empShift.endTime}"/>
+									</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="two">
+            <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                <div class="wrapperPad">
+                    <div class="cardNew card-1 align-self-center">
+                        <div class="card-heading1">
+                             <img src="images/avatar.jpeg" alt="Avatar" style="width:80%">
+                        </div>
+                        <div class="card-body">
+                        
+                         <div th:if="${emp != null}">
+                                <div class="output">
+                                    <center>
+                                        <h4 class="title" style="text-transform: uppercase;" th:text="${emp.firstName} + ' '+${emp.lastName}"></h4></center>                                 
+                                    <div class="output">
+                                    	<p><b>EMAIL: </b> <span th:text="${emp.email}"></span></p><br>
+                                        <p><b>DATE OF BIRTH: </b> <span th:text="${emp.dateOfBirth}"></span></p><br>
+                                        <p><b>DATE OF JOINING: </b> <span th:text="${emp.dateOfjoining}"></span></p><br>
+                                        <p><b>ADDRESS: </b> <span th:text="${emp.address}"></span></p><br>
+                                        <p><b>PHONE NO.: </b> <span th:text="${emp.phoneNumber}"></span></p><br>
+                                    </div>
+
+                                </div>
+                            </div>
+<!--                             <div th:if="${emp != null}"> -->
+<!--                             <p th:text=${emp.email} ></p> -->
+<!--               			 	<p th:text="${emp.firstName}"></p> -->
+<!--               			 	<p th:text="${emp.lastName}"></p> -->
+<!--               			 	<p th:text="${emp.dateOfBirth}"></p> -->
+<!--               			 	<p th:text="${emp.dateOfjoining}"></p> -->
+<!--               			 	<p th:text="${emp.address}"></p> -->
+<!--               			 	<p th:text="${emp.phoneNumber}"></p> -->
+<!--                             </div> -->
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/global.js"></script>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="js/main.js"></script>
+
+</html>
